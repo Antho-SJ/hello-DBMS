@@ -59,6 +59,10 @@ UML est utilisé pour la modélisation, la spécification, la construction et la
 
 I. Le language SQL est un language de requête pour intérroger les base de données. Les commandes les plus utilisées sont :
 SELECT, FROM, WHERE, GROUP BY, ORDER BY, AVG, MAX, MIN,... On peut également faire des jointure externe, interne, à gauche et à droite, et le cross join.
+
+job7 : Les cardinalités nous disent que un match peut être jouer par 0 ou plusieurs équipes (On pourrait aussi adopter la convention 1,n qui ne change pas grand chose) et que une équipe joue un seul et unique match. 
+Une équipe marque un seul et unique but et un but est marqué par 0 ou plusieurs équipes (Ici il faudrait échanger les deux cardinalités pour qu'il y ait un réel sens).
+Enfin, un but est marqué dans 0 ou plusieurs match et un match présente un seul et unique but (Ici aussi il faudrait changer les deux cardinalités).
 ___________________________________________________________________________________________________________________________________________________________________________
 
 Les requêtes sont ajoutées dans le répositoire.
