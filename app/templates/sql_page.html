@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}CarbonFootprint{% endblock %}
+
+{% block content %}
+    <h1> Émission médiane en gCO2kWh des différentes ressources :</h1>
+    <div>
+        <span class="badge badge-primary">Charbon : {{ 820 }}</span>
+        <span class="badge badge-primary">Gaz naturel : {{ 490 }}</span>
+        <span class="badge badge-primary">Pétrole : {{ 740}}</span>
+        <span class="badge badge-primary">Hydrolique : {{ 24 }}</span>
+        <span class="badge badge-primary">Renouvelable : {{ 41 }}</span>
+        <span class="badge badge-primary">Nucléaire : {{ 12 }}</span>
+    </div><hr><br>
+    <h1>% d'utilisation des différentes sources d’énergie par pays :</h1>
+    <form method="POST" action="/stats" id="countryForm">
+        <label for="results10">Sélectionnez un pays :</label>
+        <select name="results10" id="results10">
+            {% for p in results10 %}
+                <option value="{{ p['Country'] }}">{{ p['Country'] }}</option>
+            {% endfor %}
+        </select>
+    </form>
+    
+    <div id="countryStats">
+        {% for results in results10 %}
+            <div id="{{ results['Country'] }}-stats" class="country-stats" style="display: none;">
+                    <h2>{{ results['Country'] }}</h2>
+                <span class="badge badge-primary">{{ results['Coal'] }}% Charbon</span>
+                <span class="badge badge-primary">{{ results['Gas'] }}% Gaz naturel</span>
+                <span class="badge badge-primary">{{ results['Oil'] }}% Pétrole</span>
+                <span class="badge badge-primary">{{ results['Hydro'] }}% Hydrolique</span>
+                <span class="badge badge-primary">{{ results['Renewable'] }}% Renouvelable</span>
+                <span class="badge badge-primary">{{ results['Nuclear'] }}% Nucléaire</span>
+                <hr><br>
+                <h1> Contribution en émission CO2 (en gCO2kWh) de {{ results['Country'] }} :</h1>
+                <span class="badge badge-primary">Charbon : {{(results['Coal']/100)*820 }}</span>
+                <span class="badge badge-primary">Gaz naturel : {{(results['Gas']/100)*490 }}</span>
+                <span class="badge badge-primary">Pétrole : {{(results['Oil']/100)*740 }}</span>
+                <span class="badge badge-primary">Hydrolique : {{(results['Hydro']/100)*24 }}</span>
+                <span class="badge badge-primary">Renouvelable : {{(results['Renewable']/100)*41 }}</span>
+                <span class="badge badge-primary">Nucléaire : {{(results['Nuclear']/100)*12 }}</span>
+                <hr><br>
+                <h1> Contribution totale en émission CO2 de {{ results['Country'] }} : </h1>
+                <span class="badge badge-primary">{{(results['Coal']/100)*820 + (results['Gas']/100)*490 + (results['Oil']/100)*740 + (results['Hydro']/100)*24 + (results['Renewable']/100)*41 + (results['Nuclear']/100)*12 }} gCO2kWh</span>
+                <hr><br>
+                <h1> Émission totale annuelle de {{ results['Country'] }} :</h1>
+                <p> Consommation électrique (en kW) :</p>
+                <input type="number" id="monChampNombre" placeholder="Entrez un nombre">
+                <div id="resultat"></div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.getElementById('results10').addEventListener('change', function() {
+            var selectedCountry = this.value;
+            var allStatsDivs = document.querySelectorAll('.country-stats');
+            
+            allStatsDivs.forEach(function(statsDiv) {
+                statsDiv.style.display = 'none';
+            });
+
+            var selectedStatsDiv = document.getElementById(selectedCountry + '-stats');
+            if (selectedStatsDiv) {
+                selectedStatsDiv.style.display = 'block';
+            }
+        });
+    </script>
+{% endblock %}
+

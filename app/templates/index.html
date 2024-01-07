@@ -1,0 +1,86 @@
+
+{% extends 'base.html' %}
+
+{% block title %}CarbonFootprint{% endblock %}
+
+{% block content %}
+    <h1>Quelques données sur la production d'énergie</h1>
+    
+    <ul class="liste">
+        <li>
+            <p> Ici, nous avons la moyenne d'utilisation des différentes énergies parmis les pays référencés,</p>
+            <table border="4">
+                <tr>
+                    <th>Charbon</th>
+                    <th>Gaz naturel</th>
+                    <th>Pétrole</th>
+                    <th>Hydrolique</th>
+                    <th>Renouvelable</th>
+                    <th>Nucléaire</th>
+                </tr>
+                {% for row in results1 %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                </tr>    
+            {% endfor %}
+            </table><br>
+            <table border="4">
+                <tr>
+                    <th>Région</th>
+                    <th>% d'utilisation de l'hydrolique</th>
+                </tr>
+                {% for row in results2 %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                </tr>    
+            {% endfor %}
+            </table>
+            <p>On remarque que l'énergie la plus utilisée en moyenne est l'hydrolique, et que c'est en amérique latine qu'elle est le plus utilisé.</p><br>   
+        </li>
+        <li>
+            <p> Voici quelques information supplémentaire :</p>
+            <table border="4">
+                {% for row in results3 %}
+                <tr>
+                    <td>Nombre de pays utilisant encore le charbon</td>
+                    <th>{{ row[0] }}</th>
+                </tr>
+                {% endfor %}
+                {% for row in results4 %}
+                <tr>
+                    <td>Nombre de pays utilisant le charbon à plus de 30% pour la production d'énergie</td>
+                    <th>{{ row[0] }}</th>
+                </tr>    
+            {% endfor %}
+             </table><br>
+        </li>
+        <li>
+            <p> Top 5 des pays utilisant le plus les énergies Renouvelables par rapport aux autres énergies,</p>
+            <table border="4">
+                <tr>
+                    <th>Pays</th>
+                    <th>% d'utilisation</th>
+                </tr>
+                {% for row in range(5) %}
+                    <tr>
+                        <td>{{ results6[row][0] }}</td>
+                        <td>{{ results6[row][1] }}</td>
+                    </tr>
+                {% endfor %}
+            </table><br>
+        </li>
+        <li>
+            <p>C'est en {{ results7 }} que l'énergie nucléaire est le plus utilisé.</p>
+        </li>
+        
+        
+            
+        
+    </ul>
+{% endblock %}
